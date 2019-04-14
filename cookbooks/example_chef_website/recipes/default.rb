@@ -33,11 +33,6 @@ end
 
 ## MySQL / MariaDB-Related Tasks ##
 ### Installing MySQL / MariaDB ###
-package 'httpd' do
-  action :install
-end
-
-### Installing MySQL / MariaDB ###
 package 'mariadb-server' do
   action :install
 end
