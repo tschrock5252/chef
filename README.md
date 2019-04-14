@@ -1,6 +1,6 @@
 # chef
 
-This is a repository built specifically for maintaining Chef locally in my environment. 
+This is a repository built specifically for maintaining Chef locally in my environment.
 
 ## Getting Started
 
@@ -27,3 +27,5 @@ Step 4) Download all files using: git pull origin master
 #### example_chef_website
 
 This is a very simple LAMP stack which I have set up at this time to demonstrate my capabilities with Chef!
+
+At this time, it requires no additional prerequisites to get working, though it has only been tested on CentOS 7.
