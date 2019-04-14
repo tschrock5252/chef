@@ -6,7 +6,7 @@ It has been tested on CentOS 7 at this time, but not on any other Operating Syst
 
 ## Installed Packages
 
-The following Packages will be installed when this cookbook runs:
+The following packages will be installed when this cookbook runs:
 * httpd
 * php
 * php-mysql
