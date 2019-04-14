@@ -1,30 +1,22 @@
-# chef
+# example_chef_website
 
-This is a repository built specifically for maintaining Chef locally in my environment. 
+This is a cookbook built to install Apache, MySQL and PHP on a CentOS server.
 
-## Getting Started
+It has been tested on CentOS 7 at this time, but not on any other Operating Systems. 
 
-Feel free to follow the instructions below to get a copy of these files set up on your local machine for development and testing purposes.
+## Installed Packages
 
-### Prerequisites
+The following Packages will be installed when this cookbook runs:
+* httpd
+* php
+* php-mysql
+* mariadb-server
+* mariadb
 
-Each cookbook may require its own prerequisites. Those will be outlined in the **cookbooks** section below.
+### MySQL / MariaDB
 
-### Installing
+MySQL / MariaDB is automatically installed using a shell script which is included in **files/mysql_secure_install.erb**
 
-```
-Step 1) Fork a copy of the repository in github which is located here: https://github.com/tschrock5252/chef
+Keep in mind, it does this using a pre-defined password which is, at this time **VAdTdqNtE3w2J44s5A38WT8ZGwcQf4fN**
 
-Step 2) On your local machine, move to a new folder to work within and create a new git repository with: git init
-
-Step 3) Add a new origin using the following command: git remote add origin git@github.com:your_username/chef.git
-
-Step 4) Download all files using: git pull origin master
-```
-
-### cookbooks
-
-#### example_chef_website
-
-This is a very simple LAMP stack which I have set up at this time to demonstrate my capabilities with Chef!
-
+That can be changed by modifying the default recipe included in this cookbook.
