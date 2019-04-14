@@ -1,0 +1,64 @@
+#! /bin/bash
+#
+# Original Author: Bert Van Vreckem <bert.vanvreckem@gmail.com>
+# Source: https://bertvv.github.io/notes-to-self/2015/11/16/automating-mysql_secure_installation/
+# Modified By: Tyler Schrock <tschrock52@gmail.com>
+# 
+# A non-interactive replacement for mysql_secure_installation
+#
+
+set -o errexit # abort on nonzero exitstatus
+set -o nounset # abort on unbound variable
+
+##  Functions are defined below ##
+usage() {
+cat << _EOF_
+
+Usage: ${0} "ROOT PASSWORD"
+
+  where "ROOT PASSWORD" is the desired password for mysql's root user.
+
+Use quotes if your password contains spaces or other special characters.
+_EOF_
+}
+
+##  This returns an exit status of 0 if the database root password is set. It will return a nonzero exit status otherwise. ##
+is_mysql_root_password_set() {
+    ! mysqladmin --user=root status > /dev/null 2>&1
+}
+
+## This returns an exit status of 0 if the mysql(1) command is available. It will return a nonzero exit status otherwise. ##
+is_mysql_command_available() {
+    which mysql > /dev/null 2>&1
+}
+
+## Command line parsing is defined below ##
+
+if [ "$#" -ne "1" ]; then
+    echo "Expected 1 argument, got $#" >&2
+    usage
+    exit 2
+fi
+
+## Variables are defined below ##
+db_root_password="${1}"
+
+## The main script is defined below ##
+if ! is_mysql_command_available; then
+    echo "The MySQL/MariaDB client mysql(1) is not installed."
+    exit 1
+fi
+
+if is_mysql_root_password_set; then
+    echo "The database root password is already set."
+    exit 0
+fi
+
+mysql --user=root <<_EOF_
+    UPDATE mysql.user SET Password=PASSWORD('${db_root_password}') WHERE User='root';
+    DELETE FROM mysql.user WHERE User='';
+    DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+    DROP DATABASE IF EXISTS test;
+    DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
+    FLUSH PRIVILEGES;
+_EOF_
