@@ -28,6 +28,6 @@ Step 4) Download all files using: git pull origin master
 
 This is a very simple LAMP stack which I have set up at this time to demonstrate my capabilities with Chef!
 
-*This cookbook has only been tested on CentOS 7.
-*This cookbook requires a data bag named example_chef_website_mysql_root_password. Setup for that is outlined in more detail in that cookbook's README.md file.
+* This cookbook has only been tested on CentOS 7.
+* This cookbook requires a data bag named example_chef_website_mysql_root_password. Setup for that is outlined in more detail in that cookbook's README.md file.
 
