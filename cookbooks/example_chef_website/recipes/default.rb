@@ -52,8 +52,14 @@ cookbook_file "/tmp/mysql_secure_install.sh" do
   mode "0755"
 end
 
-execute "Configuring a MySQL / MariaDB root password" do
-  command "bash /tmp/mysql_secure_install.sh VAdTdqNtE3w2J44s5A38WT8ZGwcQf4fN"
+### Setting Data Bag Variables ###
+mysql_root_password_information = search(:example_chef_website_mysql_root_password, 'id:mysql_data')
+mysql_root_password_information.each do |mysql_root_password_information|
+  mysql_root_password_nostrip = mysql_root_password_information['_default']['password']
+  mysql_root_password = mysql_root_password_nostrip.strip
+  execute "Configuring a MySQL / MariaDB root password" do
+    command "bash /tmp/mysql_secure_install.sh #{mysql_root_password}"
+  end
 end
 
 execute "Removing the script used to set the root password." do
